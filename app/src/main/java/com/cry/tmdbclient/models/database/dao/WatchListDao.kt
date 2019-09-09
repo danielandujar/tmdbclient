@@ -25,8 +25,7 @@ interface WatchListDao {
     @Query("SELECT * FROM $TABLE_NAME")
     fun getWatchList(): List<WatchList>
 
-    /*
-    @Query("SELECT * FROM ${DatabaseContract.TableMovie}.TABLE_NAME WHERE ${DatabaseContract.TableMovie}.COLUMN_MOVIE_ID IN ( SELECT $COLUMN_MOVIE_ID FROM $TABLE_NAME )")
-    fun getWatchListMovies() : List<Movie>
-    */
+    @Query("SELECT * FROM $TABLE_NAME WHERE $COLUMN_MOVIE_ID = :movieId ")
+    fun getWatchListByMovieId(movieId: Int): WatchList?
+
 }

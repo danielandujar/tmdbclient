@@ -49,6 +49,7 @@ class MovieDescActivity : AppCompatActivity() {
     lateinit var actorsObserver : Observer<ActorsListAdapter>
     lateinit var actorsAdapterObserver : Observer<ActorsListAdapter>
     lateinit var isFavoriteObserver : Observer<Boolean>
+    lateinit var watchListObserver : Observer<Boolean>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -119,11 +120,25 @@ class MovieDescActivity : AppCompatActivity() {
 
         isFavoriteObserver = Observer {
             if (it) {
-                btnAddFavorite.setCompoundDrawables(resources.getDrawable(R.drawable.ic_favorite_filled_24dp), null, null, null)
+                btnAddFavorite.setCompoundDrawablesWithIntrinsicBounds(resources.getDrawable(R.drawable.ic_favorite_filled_24dp), null, null, null)
+                btnAddFavorite.text = getString(R.string.remove_favorites)
             } else {
-                btnAddFavorite.setCompoundDrawables(resources.getDrawable(R.drawable.ic_favorite_outline_24dp), null, null, null)
+                btnAddFavorite.setCompoundDrawablesWithIntrinsicBounds(resources.getDrawable(R.drawable.ic_favorite_outline_24dp), null, null, null)
+                btnAddFavorite.text = getString(R.string.add_favorites)
             }
         }
+        viewModel.isFavorite.observe(this, isFavoriteObserver)
+
+        watchListObserver = Observer {
+            if (it) {
+                btnAddWatchList.setCompoundDrawablesWithIntrinsicBounds(resources.getDrawable(R.drawable.ic_remove_24dp), null, null, null)
+                btnAddWatchList.text = getString(R.string.remove_watchlist)
+            } else {
+                btnAddWatchList.setCompoundDrawablesWithIntrinsicBounds(resources.getDrawable(R.drawable.ic_list_24dp), null, null, null)
+                btnAddWatchList.text = getString(R.string.add_watchlist)
+            }
+        }
+        viewModel.isInWatchList.observe(this, watchListObserver)
     }
     private fun setupStars(rIdx : Double) {
         //1st Star

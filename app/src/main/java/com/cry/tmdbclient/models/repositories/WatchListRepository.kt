@@ -32,5 +32,12 @@ class WatchListRepository(app : Application) {
             onSuccess(list)
         }
     }
+    fun getWatchListByMovieId(movieId : Int, onSuccess : (WatchList?) -> Unit )
+    {
+        GlobalScope.launch {
+            val watchlist = wlDao.getWatchListByMovieId(movieId)
+            onSuccess(watchlist)
+        }
+    }
 
 }

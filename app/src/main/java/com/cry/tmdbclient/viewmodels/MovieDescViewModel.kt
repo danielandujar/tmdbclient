@@ -1,17 +1,17 @@
 package com.cry.tmdbclient.viewmodels
 
 import android.app.Application
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.cry.tmdbclient.core.arch.BaseViewModel
 import com.cry.tmdbclient.models.database.obj.Actor
 import com.cry.tmdbclient.models.database.obj.Genre
 import com.cry.tmdbclient.models.database.obj.Movie
-import com.cry.tmdbclient.models.repositories.ActorRepository
-import com.cry.tmdbclient.models.repositories.GenreRepository
-import com.cry.tmdbclient.models.repositories.MovieRepository
-import com.cry.tmdbclient.models.repositories.TMDbRepository
+import com.cry.tmdbclient.models.database.obj.WatchList
+import com.cry.tmdbclient.models.repositories.*
 import com.cry.tmdbclient.views.Adapters.ActorsListAdapter
+import org.threeten.bp.Instant
 import java.text.NumberFormat
 import java.util.*
 
@@ -75,6 +75,9 @@ class MovieDescViewModel(app: Application) : BaseViewModel(app)
     private var mIsFavorite = MutableLiveData<Boolean>()
     val isFavorite : LiveData<Boolean> get() = mIsFavorite
 
+    private var mIsInWatchList = MutableLiveData<Boolean>()
+    val isInWatchList : LiveData<Boolean> get() = mIsInWatchList
+
     init {
 
     }
@@ -124,12 +127,11 @@ class MovieDescViewModel(app: Application) : BaseViewModel(app)
             GenreRepository(mApp).updateAllGenres(genres)
         }
     }
-    private fun getMovieObject(apiMovie : com.cry.tmdbclient.models.api.tmdb.obj.movie.Movie)
-    {
+    private fun getMovieObject(apiMovie : com.cry.tmdbclient.models.api.tmdb.obj.movie.Movie) {
         MovieRepository(mApp).getMovie(apiMovie.id) {
-            if (it != null)
-            {
+            if (it != null) {
                 this.movie = it
+                this.mIsFavorite.postValue(it.isFavorite)
             }
             else {
                 var mov = Movie(
@@ -155,10 +157,36 @@ class MovieDescViewModel(app: Application) : BaseViewModel(app)
                     false )
                 this.movie = mov
             }
+            WatchListRepository(mApp).getWatchListByMovieId(this.movie.id){ watchlist ->
+                mIsInWatchList.postValue (watchlist != null)
+            }
         }
 
     }
-    fun addWatchList() {
+    fun toggleWatchList() {
+        WatchListRepository(mApp).getWatchListByMovieId(movie.id){
+            if (it == null) {
+                var watchListId = mApp.getSharedPreferences("WATCHLIST_ID", Context.MODE_PRIVATE)
+                    .getInt("WATCHLIST_ID", 1)
+
+                watchListId++
+
+                val watchlist = WatchList(
+                    watchListId, movie.id, Instant.now(), false )
+
+                WatchListRepository(mApp).insertWatchList(watchlist)
+
+                val sharedPref = mApp.getSharedPreferences("WATCHLIST_ID", Context.MODE_PRIVATE)
+                with (sharedPref.edit()) {
+                    putInt("WATCHLIST_ID", watchListId)
+                    apply()
+                }
+                mIsInWatchList.postValue(true)
+            } else {
+                WatchListRepository(mApp).deletefromWatchList(it)
+                mIsInWatchList.postValue(false)
+            }
+        }
 
     }
     fun toggleFavorite()
