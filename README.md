@@ -1,6 +1,7 @@
 # TMDb Client
 #### Yet Another #TheMovieDatabase Client
 A simple movie library built in Kotlin using the #MVVM pattern.
+
 ![Splash](/img/1.jpg) ![Main Screen](/img/2.jpg) ![WatchList Tab](/img/3.jpg) ![Movie Description](/img/4.jpg) ![Movie Search](/img/5.jpg)
 
 ### Features
