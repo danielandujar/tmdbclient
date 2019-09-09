@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">TMDb</string>
+    <string name="title_main_list">Items</string>
+    <string name="title_main_detail">Main Detail</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="recent_movies">Newest</string>
+    <string name="popular_movies">Popular</string>
+    <string name="favorite_movies">Favorite</string>
+    <string name="watchlist">Watch List</string>
+    <string name="add_watchlist">Add to Watch List</string>
+    <string name="remove_watchlist">Remove from Watch List</string>
+    <!-- Main Activity -->
+    <string name="watchlist_added_on">Added on:   </string>
+    <!-- Search Activity -->
+    <string name="hint_search">(Movie Title)</string>
+    <string name="add_favorites">Add to Favorites</string>
+    <string name="remove_favorites">Remove from Favorites</string>
+    <!-- Movie Desc Activity -->
+    <string name="dummy_actor_name">Dummy Actor</string>
+    <string name="stats_budget">Budget</string>
+    <string name="stats_revenue">Revenue</string>
+    <string name="stats_release_date">Release Date</string>
+    <string name="stats_status">Status</string>
+    <string name="stats_is_adult">Adult Content</string>
+</resources>

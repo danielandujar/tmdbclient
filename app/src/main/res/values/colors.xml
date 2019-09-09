@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0e1829</color>
+    <color name="colorPrimaryDark">#0d1624</color>
+    <color name="colorAccent">#1bd58b</color>
+    <color name="colorPrimaryLight">#C5CAE9</color>
+    <color name="colorPrimaryText">#FFFFFF</color>
+    <color name="colorSecondaryText">#828fa9</color>
+    <color name="colorPrimaryIcons">#1bd58b</color>
+    <color name="colorSecondaryIcons">#828fa9</color>
+    <color name="colorDivider">#99828fa9</color>
+    <!--Splash Screen-->
+    <color name="splash_colorBackgroundStart">#07352f</color>
+    <color name="splash_colorBackgroundMiddle">#081c24</color>
+    <color name="splash_colorBackgroundEnd">#0e1829</color>
+    <!--Server Selection Screen-->
+    <color name="main_colorBackground">#0e1829</color>
+    <color name="transparentGradientTransparent">#00000000</color>
+    <color name="transparentGradientMiddle">#BB0e1829</color>
+    <color name="transparentGradientPrimary">#0e1829</color>
+    <color name="transparentGradientDark">#000000</color>
+    <color name="listItemBackground">#18253a</color>
+    <color name="listSelectedBackground">#441bd58b</color>
+</resources>
